@@ -12,6 +12,8 @@
 
 import logging
 
+import pytest
+
 from marquez_airflow.models import DbTableName
 from marquez_airflow.extractors.sql import SqlParser
 
@@ -175,3 +177,22 @@ def test_parse_simple_insert_into_select():
 
     assert sql_meta.in_tables == [DbTableName('table0')]
     assert sql_meta.out_tables == [DbTableName('table1')]
+
+
+def test_parse_simple_cte():
+    sql_meta = SqlParser.parse(
+        '''
+        WITH sum_trans as (
+            SELECT user_id, COUNT(*) as cnt, SUM(amount) as balance 
+            FROM transactions 
+            WHERE created_date > '2020-01-01' 
+            GROUP BY user_id 
+        )
+        INSERT INTO potential_fraud (user_id, cnt, balance)
+        SELECT user_id, cnt, balance
+          FROM sum_trans
+          WHERE count > 1000 OR balance > 100000;
+        '''
+    )
+    assert sql_meta.in_tables == [DbTableName('transactions')]
+    assert sql_meta.out_tables == [DbTableName('potential_fraud')]
