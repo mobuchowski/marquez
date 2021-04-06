@@ -45,7 +45,7 @@ def _match_on(token, keywords):
 
 
 def _get_tables(tokens, idx) -> Tuple[int, List[DbTableName]]:
-    
+
     def parse_ident(ident: Identifier) -> str:
         token_list = ident.flatten()
         table_name = next(token_list).value
@@ -110,7 +110,7 @@ class SqlParser:
 
     def recurse(self, tokens: TokenList):
         in_tables, out_tables = set(), set()
-        
+
         idx, token = tokens.token_next_by(t=T.Keyword)
         while token:
 
@@ -127,7 +127,7 @@ class SqlParser:
                 for table in extracted_tables:
                     if table.name not in self.ctes:
                         in_tables.add(table)
-                
+
             elif _is_out_table(token):
                 idx, extracted_tables = _get_tables(tokens, idx)
                 out_tables.add(extracted_tables[0])  # assuming only one out_table
@@ -141,10 +141,10 @@ class SqlParser:
 
     def parse_cte(self, idx, tokens: TokenList):
         _, group = tokens.token_next(idx, skip_ws=True, skip_cm=True)
-        
+
         if not group.is_group:
             return [], None
-        
+
         # get CTE name
         offset = 1
         cte_name = group.token_first(skip_ws=True, skip_cm=True)

@@ -183,10 +183,10 @@ def test_parse_simple_cte():
     sql_meta = SqlParser.parse(
         '''
         WITH sum_trans as (
-            SELECT user_id, COUNT(*) as cnt, SUM(amount) as balance 
-            FROM transactions 
-            WHERE created_date > '2020-01-01' 
-            GROUP BY user_id 
+            SELECT user_id, COUNT(*) as cnt, SUM(amount) as balance
+            FROM transactions
+            WHERE created_date > '2020-01-01'
+            GROUP BY user_id
         )
         INSERT INTO potential_fraud (user_id, cnt, balance)
         SELECT user_id, cnt, balance
