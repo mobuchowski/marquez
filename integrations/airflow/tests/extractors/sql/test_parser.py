@@ -80,7 +80,7 @@ def test_parse_simple_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
@@ -94,7 +94,7 @@ def test_parse_simple_inner_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
@@ -108,7 +108,7 @@ def test_parse_simple_left_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
@@ -122,7 +122,7 @@ def test_parse_simple_left_outer_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
@@ -136,7 +136,7 @@ def test_parse_simple_right_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
@@ -150,7 +150,7 @@ def test_parse_simple_right_outer_join():
         '''
     )
 
-    assert sql_meta.in_tables == [DbTableName('table0'), DbTableName('table1')]
+    assert set(sql_meta.in_tables) == {DbTableName('table0'), DbTableName('table1')}
     assert sql_meta.out_tables == []
 
 
