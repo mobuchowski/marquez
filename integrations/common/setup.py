@@ -22,6 +22,7 @@ with open("README.md") as readme_file:
 requirements = [
     "attrs>=20.3.0",
     "openlineage-python>=0.0.1"
+    "sqlparse>=0.4.1"
 ]
 
 extras_require = {
